@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHabitRequest;
+use App\Http\Requests\UpdateHabitRequest;
 use App\Models\Habit;
 use App\Http\Resources\HabitResource;
 
@@ -27,5 +28,14 @@ class HabitController extends Controller
 
         return HabitResource::make($habit);
 
+    }
+
+    public function update(Habit $habit, UpdateHabitRequest $request)
+    {
+        $data = $request->validated();
+
+        $habit->update($data);
+
+        return HabitResource::make($habit);
     }
 }
