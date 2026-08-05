@@ -13,10 +13,15 @@ class HabitController extends Controller
         return HabitResource::collection(Habit::all());
     }
 
+    public function show(Habit $habit)
+    {
+        return HabitResource::make($habit);
+    }
 
     public function store(StoreHabitRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->only(['title','uuid']);
+        $data['user_id'] = 1;
 
         $habit = Habit::create($data);
 

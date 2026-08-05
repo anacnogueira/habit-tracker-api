@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreHabitRequest extends FormRequest
 {
@@ -23,7 +23,15 @@ class StoreHabitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required'
+            'title' => ['required', 'max:255', 'string', 'min:3']
         ];
+    }
+
+    /**
+    * Handle a passed validation attempt.
+    */
+    protected function passedValidation(): void
+    {
+        $this->merge(['uuid' => Str::uuid()]);
     }
 }
