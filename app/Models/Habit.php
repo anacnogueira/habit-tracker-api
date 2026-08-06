@@ -16,11 +16,11 @@ class Habit extends Model
 
     public function logs(): HasMany
     {
-        return $this->hasMany('HabitLog');
+        return $this->hasMany(HabitLog::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
 }
