@@ -28,7 +28,6 @@ class HabitController extends Controller
         $habit = Habit::create($data);
 
         return HabitResource::make($habit);
-
     }
 
     public function update(Habit $habit, UpdateHabitRequest $request)
