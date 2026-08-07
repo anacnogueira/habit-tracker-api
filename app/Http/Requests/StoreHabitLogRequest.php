@@ -26,12 +26,4 @@ class StoreHabitLogRequest extends FormRequest
             'completed_at' => ['required', 'date']
         ];
     }
-
-    /**
-    * Handle a passed validation attempt.
-    */
-    protected function passedValidation(): void
-    {
-        $this->merge(['uuid' => Str::uuid()]);
-    }
 }
