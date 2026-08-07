@@ -12,6 +12,11 @@ class HabitController extends Controller
 {
     public function index()
     {
+
+        $token = request()->bearerToken();
+
+        abort_unless($token == '2409', 403);
+
         $habits = Habit::query()
             ->when(request()->string('with', '')->contains('user'),
                 fn($query) => $query->with(['user'])
