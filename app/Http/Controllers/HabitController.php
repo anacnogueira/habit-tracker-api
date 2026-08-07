@@ -44,7 +44,7 @@ class HabitController extends Controller
 
     public function destroy(Habit $habit)
     {
-        HabitLog::whereHabitId($habit->id)->delete();
+        $habit->logs()->delete();
 
         $habit->delete();
 
