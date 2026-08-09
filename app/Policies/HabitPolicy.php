@@ -7,10 +7,17 @@ use App\Models\User;
 
 class HabitPolicy
 {
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function own(User $user, Habit $habit): bool
+    public function view(User $user, Habit $habit): bool
+    {
+        return $user->id === $habit->user_id;
+    }
+
+    public function update(User $user, Habit $habit): bool
+    {
+        return $user->id === $habit->user_id;
+    }
+
+    public function delete(User $user, Habit $habit): bool
     {
         return $user->id === $habit->user_id;
     }

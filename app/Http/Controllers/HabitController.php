@@ -7,6 +7,8 @@ use App\Models\Habit;
 use App\Http\Requests\StoreHabitRequest;
 use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
+use Illuminate\Support\Facades\Gate;
+
 class HabitController extends Controller
 {
     public function index()
@@ -25,6 +27,8 @@ class HabitController extends Controller
 
     public function show(Habit $habit)
     {
+        Gate::authorize('view', $habit);
+
         request()->validate([
             'with' => ['string', 'nullable', 'regex:/\b(?:logs|user)(?:.*\b(?:logs|user))?/i']
         ]);
@@ -49,6 +53,8 @@ class HabitController extends Controller
 
     public function update(Habit $habit, UpdateHabitRequest $request)
     {
+        Gate::authorize('update', $habit);
+
         $habit->update( $request->validated());
 
         return HabitResource::make($habit);
@@ -56,6 +62,8 @@ class HabitController extends Controller
 
     public function destroy(Habit $habit)
     {
+        Gate::authorize('delete', $habit);
+
         $habit->logs()->delete();
 
         $habit->delete();
