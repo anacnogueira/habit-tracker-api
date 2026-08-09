@@ -7,6 +7,10 @@ namespace App\Providers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use App\Policies\HabitPolicy;
+use App\Models\Habit;
+use Illuminate\Support\Facades\Gate;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
             return Password::min(4);
         });
+
+
 
     }
 }

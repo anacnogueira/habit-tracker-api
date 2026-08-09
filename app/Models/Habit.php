@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use App\Policies\HabitPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
+#[UsePolicy(HabitPolicy::class)]
 class Habit extends Model
 {
     /** @use HasFactory<HabitFactory> */

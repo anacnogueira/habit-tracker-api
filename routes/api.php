@@ -19,7 +19,8 @@ Route::name('api.')->group(function() {
             return $request->user();
         });
 
-        Route::apiResource('habits', HabitController::class)->scoped(['habit' => 'uuid']);
+        Route::apiResource('habits', HabitController::class)
+            ->scoped(['habit' => 'uuid']);
 
         Route::apiResource('habits.logs', HabitLogController::class)
             ->only(['index', 'show', 'store', 'destroy'])

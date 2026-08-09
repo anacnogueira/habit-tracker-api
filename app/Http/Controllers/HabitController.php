@@ -7,7 +7,6 @@ use App\Models\Habit;
 use App\Http\Requests\StoreHabitRequest;
 use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
-
 class HabitController extends Controller
 {
     public function index()
