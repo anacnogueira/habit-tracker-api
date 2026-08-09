@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\Habit;
 use App\Http\Requests\StoreHabitRequest;
 use App\Http\Requests\UpdateHabitRequest;
-use App\Models\Habit;
-use App\Models\HabitLog;
 use App\Http\Resources\HabitResource;
 
 class HabitController extends Controller
@@ -13,6 +13,7 @@ class HabitController extends Controller
     public function index()
     {
         $habits = Habit::query()
+            ->where('user_id', auth()->user()->id)
             ->when(request()->string('with', '')->contains('user'),
                 fn($query) => $query->with(['user'])
             )
@@ -42,7 +43,7 @@ class HabitController extends Controller
 
     public function store(StoreHabitRequest $request)
     {
-        $habit = Habit::create(array_merge($request->validated(), ['user_id' => 1]));
+        $habit =Auth::user()->habits()->create($request->validated());
 
         return HabitResource::make($habit);
     }
