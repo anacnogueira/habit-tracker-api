@@ -5,11 +5,12 @@ use App\Http\Controllers\HabitController;
 use App\Http\Controllers\HabitLogController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-Route::name('api.')->group(function() {
 
+Route::name('api.')->group(function() {
     // Guest
     Route::middleware('guest')->group(function() {
         Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
     });
 
     //Authentication
