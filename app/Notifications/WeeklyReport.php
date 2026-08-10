@@ -35,23 +35,29 @@ class WeeklyReport extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.weekly-report',[
-            'map' => $this->getMap()
-        ]);
+        return (new MailMessage)
+            ->markdown('mail.weekly-report',[
+                'map' => $this->getMap()
+            ]);
     }
 
+    /**
+     * Generate the markdown representation of the map
+     *
+     * @return string
+     */
     public function getMap():string
     {
         $habitNames = $this->habits
             ->groupBy('habit_name')
             ->keys()
-            ->map(fn($name) => "$name |")
+            ->map(fn($name) => str($name)->limit(20) . " |")
             ->implode(' ');
 
         $splitter = $this->habits
             ->groupBy('habit_name')
             ->keys()
-            ->map(fn($name) => ":------------: | ")
+            ->map(fn($name) => "------------: | ")
             ->implode(' ');
 
         $days = $this->habits->groupBy('log_date')->map(function($habit) {
