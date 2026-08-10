@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Collection;
 
 class WeeklyReport extends Notification
 {
@@ -14,7 +15,7 @@ class WeeklyReport extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public Collection $habits)
     {
         //
     }
