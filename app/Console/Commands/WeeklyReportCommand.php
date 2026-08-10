@@ -44,11 +44,11 @@ class WeeklyReportCommand extends Command
 
         $habits = collect(DB::select($query, [$user->id]))
             ->map(function($habit){
-                return [
-                    'habit_id' => $habit['habit_id'],
-                    'habit_name' => $habit['habit_name'],
-                    'log_date' => Carbon::make($habit['log_date']),
-                    'completed' => (bool) $habit['completed']
+                return (object) [
+                    'habit_id' => $habit->habit_id,
+                    'habit_name' => $habit->habit_name,
+                    'log_date' => Carbon::make($habit->log_date),
+                    'completed' => (bool) $habit->completed
                 ];
             });
 

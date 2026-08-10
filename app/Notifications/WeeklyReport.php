@@ -35,7 +35,45 @@ class WeeklyReport extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.weekly-report');
+        return (new MailMessage)->markdown('mail.weekly-report',[
+            'map' => $this->getMap()
+        ]);
+    }
+
+    public function getMap():string
+    {
+        $habitNames = $this->habits
+            ->groupBy('habit_name')
+            ->keys()
+            ->map(fn($name) => "$name |")
+            ->implode(' ');
+
+        $splitter = $this->habits
+            ->groupBy('habit_name')
+            ->keys()
+            ->map(fn($name) => ":------------: | ")
+            ->implode(' ');
+
+        $days = $this->habits->groupBy('log_date')->map(function($habit) {
+            $day = $habit->first()->log_date->format('D j');
+
+            $logs = $habit->map(fn ($item) => ($item->completed ? '✓' : 'X') . ' |')->implode(' ');
+
+            return <<<HTML
+
+            | $day | $logs
+
+            HTML;
+
+        })->implode("\n");
+
+        return <<<HTML
+
+        |            | $habitNames
+        | :--------: | $splitter
+        $days
+
+        HTML;
     }
 
 }
