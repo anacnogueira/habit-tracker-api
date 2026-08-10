@@ -76,7 +76,7 @@ class WeeklyReport extends Notification
         return <<<HTML
 
         |            | $habitNames
-        | :--------: | $splitter
+        | -------- | $splitter
         $days
 
         HTML;

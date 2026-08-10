@@ -199,7 +199,6 @@ img {
 .table th {
     border-bottom: 1px solid #e4e4e7;
     margin: 0;
-    padding-bottom: 8px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     width: 1px;
@@ -211,7 +210,7 @@ img {
     font-size: 15px;
     line-height: 18px;
     margin: 0;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 .content-cell {
